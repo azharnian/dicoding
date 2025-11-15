@@ -1,0 +1,68 @@
+[project]
+name = "submission-etl-anas"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Anas Azhar", email = "anas.sty@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4>=4.14.2",
+    "google-auth>=2.42.1",
+    "gspread>=6.2.1",
+    "pandas>=2.3.3",
+    "psycopg2-binary>=2.9.11",
+    "python-dateutil>=2.9.0.post0",
+    "python-dotenv>=1.2.1",
+    "requests>=2.32.5",
+    "sqlalchemy>=2.0.44",
+    "tabulate>=0.9.0",
+]
+
+[project.scripts]
+submission-etl-anas = "submission_etl_anas:main"
+
+[build-system]
+requires = ["uv_build>=0.8.24,<0.9.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "coverage>=7.11.0",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+    "pytest-dotenv>=0.5.2",
+    "ruff==0.6.9",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["venv", ".venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "PD", "NPY", "DTZ"]
+ignore = [
+  "E203",
+  "E501",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["utils"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+line-ending = "lf"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = []
+
+[tool.pytest.init_options]
+dotenv_files = [".env"]

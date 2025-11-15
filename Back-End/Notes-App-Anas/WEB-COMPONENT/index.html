@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notes App (Web Components)</title>
+  <link rel="stylesheet" href="./styles/app.css"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <notes-app></notes-app>
+
+  <script type="module">
+    import './utils/bus.js';
+    import './services/storage.js';
+    import './components/app-sidebar.js';
+    import './components/mobile-footer.js';
+    import './components/note-card.js';
+    import './components/color-picker.js';
+    import './components/note-modal.js';
+    import './components/archive-modal.js';
+    import './components/notes-app.js';
+
+    import { bootstrapFromSeed } from './services/storage.js';
+    import { notesData } from './data/seed.js';
+    bootstrapFromSeed(notesData);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide?.createIcons) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

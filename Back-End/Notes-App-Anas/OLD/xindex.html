@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .note-color-orange { background-color: #fbbf24; }
+    .note-color-yellow { background-color: #facc15; }
+    .note-color-purple { background-color: #c084fc; }
+    .note-color-blue { background-color: #60a5fa; }
+    .note-color-green { background-color: #86efac; }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- Mobile Footer Navigation -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-white border-t p-2 flex justify-around md:hidden z-50">
+    <button onclick="openNoteModal()" class="text-blue-600 font-semibold">+ Note</button>
+    <button onclick="toggleArchiveModal()" class="text-yellow-600 font-semibold">Archive</button>
+  </footer>
+
+  <!-- Container -->
+  <div class="flex h-screen md:flex-row flex-col">
+    <!-- Sidebar (hidden on mobile) -->
+    <aside class="w-64 bg-white border-r p-4 flex-col hidden md:flex">
+      <h1 class="text-2xl font-bold mb-4">Notes</h1>
+      <button onclick="openNoteModal()" class="bg-blue-500 text-white px-4 py-2 rounded mb-4">+ New Note</button>
+      <button onclick="toggleArchiveModal()" class="mt-auto text-blue-600 text-left">View Archive</button>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-6 overflow-y-auto pb-20 md:pb-6">
+      <!-- Search -->
+      <input id="searchInput" type="text" placeholder="Cari catatan..." class="w-full px-3 py-2 mb-4 border rounded" oninput="renderNotes()" />
+      <div id="notesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </main>
+  </div>
+
+  <!-- Note Modal -->
+  <div id="noteModal" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center z-40">
+    <div class="bg-white p-6 rounded shadow-md w-96">
+      <h3 class="text-lg font-semibold mb-4">New Note</h3>
+      <input id="noteTitle" type="text" placeholder="Title" class="w-full border mb-2 px-2 py-1 rounded" />
+      <textarea id="noteContent" placeholder="Write something..." class="w-full border mb-2 px-2 py-1 rounded"></textarea>
+      <!-- Warna Catatan -->
+      <div class="mb-4">
+        <label class="block mb-1 text-sm font-medium text-gray-700">Pilih Warna</label>
+        <div class="flex gap-2 flex-wrap">
+          <span onclick="selectColor('orange')" class="w-6 h-6 rounded-full bg-yellow-400 cursor-pointer border-2 border-transparent hover:border-gray-500" data-color="orange"></span>
+          <span onclick="selectColor('yellow')" class="w-6 h-6 rounded-full bg-yellow-300 cursor-pointer border-2 border-transparent hover:border-gray-500" data-color="yellow"></span>
+          <span onclick="selectColor('purple')" class="w-6 h-6 rounded-full bg-purple-400 cursor-pointer border-2 border-transparent hover:border-gray-500" data-color="purple"></span>
+          <span onclick="selectColor('blue')" class="w-6 h-6 rounded-full bg-blue-400 cursor-pointer border-2 border-transparent hover:border-gray-500" data-color="blue"></span>
+          <span onclick="selectColor('green')" class="w-6 h-6 rounded-full bg-green-300 cursor-pointer border-2 border-transparent hover:border-gray-500" data-color="green"></span>
+        </div>
+        <input type="hidden" id="noteColor" value="orange" />
+      </div>
+      <div class="flex justify-between">
+        <button onclick="saveNote()" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+        <button onclick="closeNoteModal()" class="text-gray-600">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archive Modal -->
+  <div id="archiveModal" class="fixed inset-0 bg-black bg-opacity-40 hidden flex items-center justify-center z-40">
+    <div class="bg-white p-6 rounded shadow-md w-[90%] max-w-3xl">
+      <h3 class="text-lg font-semibold mb-4">Archived Notes</h3>
+      <div id="archivedContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto"></div>
+      <div class="text-right mt-4">
+        <button onclick="toggleArchiveModal()" class="text-blue-500">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const notesContainer = document.getElementById('notesContainer');
+    const archivedContainer = document.getElementById('archivedContainer');
+
+    function selectColor(color) {
+      document.getElementById("noteColor").value = color;
+      document.querySelectorAll('[data-color]').forEach(el => {
+        el.classList.remove('ring', 'ring-offset-2', 'ring-gray-800');
+      });
+      const selected = document.querySelector(`[data-color="${color}"]`);
+      if (selected) {
+        selected.classList.add('ring', 'ring-offset-2', 'ring-gray-800');
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      selectColor("orange");
+    });
+
+    function getNotes() {
+      return JSON.parse(localStorage.getItem('notes') || '[]');
+    }
+
+    function saveNote() {
+      const title = document.getElementById('noteTitle').value;
+      const content = document.getElementById('noteContent').value;
+      const color = document.getElementById('noteColor').value;
+      const note = { id: Date.now(), title, content, color, date: new Date().toLocaleDateString(), archived: false };
+      const notes = getNotes();
+      notes.push(note);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      closeNoteModal();
+      renderNotes();
+    }
+
+    function deleteNote(id) {
+      const notes = getNotes().filter(note => note.id !== id);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      renderNotes();
+    }
+
+    function archiveNote(id) {
+      const notes = getNotes().map(note => note.id === id ? { ...note, archived: true } : note);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      renderNotes();
+    }
+
+    function unarchiveNote(id) {
+      const notes = getNotes().map(note => note.id === id ? { ...note, archived: false } : note);
+      localStorage.setItem('notes', JSON.stringify(notes));
+      renderNotes();
+      document.getElementById('archiveModal').classList.add('hidden');
+    }
+
+    function renderNotes() {
+      const notes = getNotes();
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      notesContainer.innerHTML = '';
+      archivedContainer.innerHTML = '';
+
+      notes.forEach(note => {
+        const match = note.title.toLowerCase().includes(query) || note.content.toLowerCase().includes(query);
+
+        const noteEl = document.createElement('div');
+        noteEl.className = `rounded p-4 note-color-${note.color}`;
+        noteEl.innerHTML = `
+          <h4 class="font-bold">${note.title}</h4>
+          <p>${note.content}</p>
+          <p class="text-xs mt-1">${note.date}</p>
+          <div class="flex gap-2 mt-2">
+            ${note.archived
+              ? `<button onclick="unarchiveNote(${note.id})" class="text-sm text-green-700">Unarchive</button>`
+              : `<button onclick="archiveNote(${note.id})" class="text-sm text-yellow-800">Archive</button>`
+            }
+            <button onclick="deleteNote(${note.id})" class="text-sm text-red-700">Delete</button>
+          </div>
+        `;
+
+        if (match) {
+          if (!note.archived) {
+            notesContainer.appendChild(noteEl);
+          } else {
+            archivedContainer.appendChild(noteEl);
+          }
+        }
+      });
+    }
+
+    function openNoteModal() {
+      document.getElementById('noteModal').classList.remove('hidden');
+    }
+
+    function closeNoteModal() {
+      document.getElementById('noteModal').classList.add('hidden');
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteContent').value = '';
+    }
+
+    function toggleArchiveModal() {
+      document.getElementById('archiveModal').classList.toggle('hidden');
+      renderNotes();
+    }
+
+    renderNotes();
+  </script>
+</body>
+</html>

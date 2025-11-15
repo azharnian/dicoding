@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes App</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- Mobile Footer Navigation -->
+  <footer class="mobile-footer">
+    <button id="addNoteBtnMobile" class="footer-btn" title="Add Note">
+        <i data-lucide="plus-circle" class="icon"></i>
+    </button>
+    <button id="toggleArchiveBtnMobile" class="footer-btn" title="Archive">
+        <i data-lucide="archive" class="icon"></i>
+    </button>
+    </footer>
+
+  <!-- Container -->
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1>Notes</h1>
+      <button id="addNoteBtnSidebar" class="primary">+ New Note</button>
+      <button id="toggleArchiveBtnSidebar" class="link">View Archive</button>
+    </aside>
+
+    <!-- Main -->
+    <main class="main-content">
+      <input id="searchInput" type="text" placeholder="Cari catatan..." class="search-input" />
+      <div id="notesContainer" class="notes-grid"></div>
+    </main>
+  </div>
+
+  <!-- Note Modal -->
+  <div id="noteModal" class="modal">
+    <div class="modal-content">
+      <h3>New Note</h3>
+      <input id="noteTitle" type="text" placeholder="Title" />
+      <textarea id="noteContent" placeholder="Write something..."></textarea>
+      <div>
+        <label>Pilih Warna</label>
+        <div class="color-picker" id="colorPicker">
+          <span data-color="orange" class="note-color-orange"></span>
+          <span data-color="yellow" class="note-color-yellow"></span>
+          <span data-color="purple" class="note-color-purple"></span>
+          <span data-color="blue" class="note-color-blue"></span>
+          <span data-color="green" class="note-color-green"></span>
+        </div>
+        <input type="hidden" id="noteColor" value="orange" />
+      </div>
+      <div class="modal-actions">
+        <button id="saveNoteBtn" class="modal-btn primary" title="Save">
+            <i data-lucide="save" class="icon"></i>
+            <span>Save</span>
+        </button>
+        <button id="cancelNoteBtn" class="modal-btn" title="Cancel">
+            <i data-lucide="x-circle" class="icon"></i>
+            <span>Cancel</span>
+        </button>
+    </div>
+    </div>
+  </div>
+
+  <!-- Archive Modal -->
+  <div id="archiveModal" class="modal">
+    <div class="modal-content">
+      <h3>Archived Notes</h3>
+      <div id="archivedContainer" class="notes-grid"></div>
+      <div class="modal-actions">
+        <button id="closeArchiveBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
