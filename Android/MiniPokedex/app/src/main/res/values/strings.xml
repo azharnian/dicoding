@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MiniPokedex</string>
+    <string name="anas_azhar">Anas Azhar</string>
+    <string name="anas_sty_gmail_com">anas.sty@gmail.com</string>
+    <string name="profile">Profile</string>
+    <string name="mini_pokedex">Mini Pokedex</string>
+    <string name="mini_pokedex_title">Mini Pokedex</string>
+    <string name="about_title">About</string>
+    <string name="menu_about">About</string>
+    <string name="menu_share">Share</string>
+</resources>
