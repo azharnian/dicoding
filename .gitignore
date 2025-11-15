@@ -1,0 +1,149 @@
+############################
+# Umum / OS / Editor
+############################
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# VS Code
+.vscode/
+.history/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+*.local
+
+############################
+# Node.js / Front-End (React, Vite, Next, dsb)
+############################
+
+node_modules/
+bower_components/
+
+# Build output
+dist/
+build/
+.out/
+.next/
+.nuxt/
+.svelte-kit/
+coverage/
+.eslintcache
+.stylelintcache
+.turbo/
+.parcel-cache/
+.vite/
+
+############################
+# Python / Machine Learning
+############################
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+.conda/
+*.env
+
+# Tools cache
+.python-version
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.nox/
+.tox/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Data sementara
+*.tmp
+*.temp
+
+############################
+# Java / Kotlin / Gradle / Android
+############################
+
+# Gradle
+.gradle/
+**/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# NDK / CMake
+.cxx/
+
+# Local config
+local.properties
+
+# Keystore (jangan pernah commit!)
+*.jks
+*.keystore
+
+############################
+# Xcode / iOS / Swift
+############################
+
+# Xcode
+DerivedData/
+build/
+*.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xcuserdatad
+
+# SwiftPM
+.build/
+
+# CocoaPods
+Pods/
+# Carthage
+Carthage/Build/
+
+############################
+# Testing / Coverage
+############################
+
+coverage/
+htmlcov/
+.coverage*
+.cache/
+
+############################
+# Misc
+############################
+
+# Archive / dump sementara
+*.tgz
+*.gz
+*.zip
+*.tar
+*.rar
+
+# IDE lain
+*.swp
+*.swo
+*.swn
