@@ -6,6 +6,8 @@
     <string name="mini_pokedex">Mini Pokedex</string>
     <string name="mini_pokedex_title">Mini Pokedex</string>
     <string name="about_title">About</string>
-    <string name="menu_about">About</string>
     <string name="menu_share">Share</string>
+    <string name="share">Mini Pokedex</string>
+    <string name="about_string">About</string>
+    <string name="menu_about">about</string>
 </resources>

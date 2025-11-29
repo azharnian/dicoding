@@ -1,8 +1,8 @@
 package com.example.minipokedex
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.appbar.MaterialToolbar
 
 class AboutActivity : AppCompatActivity() {
 
@@ -10,15 +10,13 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "About"
-    }
+        val toolbar: MaterialToolbar = findViewById(R.id.aboutToolbar)
+        setSupportActionBar(toolbar)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
+        supportActionBar?.title = getString(R.string.about_title)
+
+        toolbar.setNavigationOnClickListener {
             finish()
-            return true
         }
-        return super.onOptionsItemSelected(item)
     }
 }

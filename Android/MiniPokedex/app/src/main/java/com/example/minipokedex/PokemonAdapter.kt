@@ -32,8 +32,15 @@ class PokemonAdapter(
         val data = pokemons[position]
 
         holder.tvName.text = data.name
-        holder.tvOverview.text = data.overview
-        holder.tvType.text = "${data.number} • ${data.type}"
+
+        holder.tvOverview.text = data.description
+            .replace("\n", " ")
+            .take(80)
+            .plus("...")
+
+        val typesText = data.types.joinToString(" / ")
+        holder.tvType.text = "${data.number} • $typesText"
+
         holder.imgPokemon.load(data.imageUrl)
 
         holder.itemView.setOnClickListener {
