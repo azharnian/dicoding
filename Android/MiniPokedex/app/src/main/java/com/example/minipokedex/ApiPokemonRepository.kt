@@ -17,19 +17,48 @@ class ApiPokemonRepository : PokemonRepository {
         val response = api.getPokemons(limit)
 
         return response.results.map { result ->
-            // ambil ID dari URL, misal .../pokemon/1/ -> "1"
-            val id = result.url.trimEnd('/').split("/").last()
+            val id = result.url.trimEnd('/').split("/").last().toInt()
+
+            val detail = api.getPokemonDetail(id)
+
+            val species = api.getPokemonSpecies(id)
+            val flavor = species.flavor_text_entries
+                .firstOrNull { it.language.name == "en" }
+                ?.flavor_text
+                ?.replace("\n", " ")
+                ?.replace("\u000c", " ")
+                ?: "No description available."
 
             val imageUrl =
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
 
+            val types = detail.types.map {
+                it.type.name.replaceFirstChar { c -> c.uppercase() }
+            }
+
+            val abilities = detail.abilities.map {
+                it.ability.name.replaceFirstChar { c -> c.uppercase() }
+            }
+
+            val stats = detail.stats.map {
+                PokemonStat(
+                    name = it.stat.name,
+                    value = it.base_stat
+                )
+            }
+
             Pokemon(
-                name = result.name.replaceFirstChar { it.uppercase() },
-                overview = "Pokémon #$id",
-                description = "Ini adalah Pokémon bernama ${result.name} dari PokeAPI.",
+                id = detail.id,
+                name = detail.name.replaceFirstChar { it.uppercase() },
+                number = "#${detail.id.toString().padStart(3, '0')}",
                 imageUrl = imageUrl,
-                type = "Unknown type",    // kalau mau, nanti bisa fetch detail lagi
-                number = "#$id"
+                types = types,
+                height = detail.height,
+                weight = detail.weight,
+                baseExperience = detail.base_experience,
+                abilities = abilities,
+                stats = stats,
+                description = flavor
             )
         }
     }

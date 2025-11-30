@@ -11,15 +11,37 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:title="@string/app_name"
-        android:titleTextColor="@android:color/white"
-        app:menu="@menu/menu_main" />
+        android:titleTextColor="@android:color/white">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/about_page"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_person"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            app:strokeWidth="2dp"
+            app:strokeColor="#BDBDBD"
+            android:contentDescription="@string/menu_about" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:layout_marginTop="?attr/actionBarSize"
         android:clipToPadding="false"
-        android:layout_marginTop="?attr/actionBarSize" />
+        android:padding="8dp" />
+
+    <ProgressBar
+        android:id="@+id/mainProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
