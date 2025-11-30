@@ -1,0 +1,65 @@
+[
+  {
+    "timestamp": "2025-11-04T12:41:29.340681+07:00",
+    "from_unit": "celsius",
+    "to_unit": "fahrenheit",
+    "input": 100.0,
+    "output": 212.0
+  },
+  {
+    "timestamp": "2025-11-04T12:42:16.222361+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 273.15,
+    "output": 0.0
+  },
+  {
+    "timestamp": "2025-11-04T12:43:22.235184+07:00",
+    "from_unit": "cm",
+    "to_unit": "km",
+    "input": 16000.0,
+    "output": 0.16
+  },
+  {
+    "timestamp": "2025-11-04T12:43:33.009203+07:00",
+    "from_unit": "cm",
+    "to_unit": "inch",
+    "input": 100.0,
+    "output": 39.37007874015748
+  },
+  {
+    "timestamp": "2025-11-04T12:50:27.418533+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 273.15,
+    "output": 0.0
+  },
+  {
+    "timestamp": "2025-11-04T12:51:29.687151+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 200.0,
+    "output": -73.14999999999998
+  },
+  {
+    "timestamp": "2025-11-04T12:57:26.279221+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 273.15,
+    "output": 0.0
+  },
+  {
+    "timestamp": "2025-11-04T12:57:36.552909+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 200.0,
+    "output": -73.14999999999998
+  },
+  {
+    "timestamp": "2025-11-04T12:57:45.077690+07:00",
+    "from_unit": "kelvin",
+    "to_unit": "celsius",
+    "input": 200.0,
+    "output": -73.14999999999998
+  }
+]

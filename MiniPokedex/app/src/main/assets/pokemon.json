@@ -1,0 +1,14 @@
+[
+  {"id":1,"name":"Bulbasaur","types":["grass","poison"],"overview":"Seed Pokémon. Energi matahari.","description":"Bulbasaur memelihara biji di punggungnya...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/1.png"},
+  {"id":4,"name":"Charmander","types":["fire"],"overview":"Api ekor = vitalitas.","description":"Api di ekor menyala kuat saat sehat...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/4.png"},
+  {"id":7,"name":"Squirtle","types":["water"],"overview":"Menyemprot air.","description":"Cangkang keras...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/7.png"},
+  {"id":25,"name":"Pikachu","types":["electric"],"overview":"Listrik di pipi.","description":"Jika berkumpul bisa badai...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/25.png"},
+  {"id":39,"name":"Jigglypuff","types":["normal","fairy"],"overview":"Nyanyian penidur.","description":"Melodi menidurkan...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/39.png"},
+  {"id":52,"name":"Meowth","types":["normal"],"overview":"Pemburu benda berkilau.","description":"Suka koin...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/52.png"},
+  {"id":63,"name":"Abra","types":["psychic"],"overview":"Tidur 18 jam; teleport.","description":"Berteleportasi refleks...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/63.png"},
+  {"id":66,"name":"Machop","types":["fighting"],"overview":"Otot kecil kuat.","description":"Latihan batu besar...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/66.png"},
+  {"id":92,"name":"Gastly","types":["ghost","poison"],"overview":"Kabut beracun.","description":"Tubuh gas...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/92.png"},
+  {"id":133,"name":"Eevee","types":["normal"],"overview":"Gen unik; banyak evolusi.","description":"Gen tidak stabil...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/133.png"},
+  {"id":147,"name":"Dratini","types":["dragon"],"overview":"Naga muda.","description":"Sering berganti kulit...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/147.png"},
+  {"id":150,"name":"Mewtwo","types":["psychic"],"overview":"Rekayasa genetik.","description":"Kekuatan psikis besar...","image":"https://raw.githubusercontent.com/PokeAPI/sprites/master/other/official-artwork/150.png"}
+]
