@@ -27,14 +27,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Gagal memuat data"
+            android:text="@string/gagal_memuat_data"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/btnRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Coba Lagi" />
+            android:text="@string/coba_lagi" />
 
     </LinearLayout>
 

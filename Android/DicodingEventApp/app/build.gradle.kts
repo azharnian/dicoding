@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.github.ben-manes.versions") version "0.53.0"
+    id("kotlin-parcelize")
 }
 
 android {
@@ -46,6 +48,11 @@ android {
         }
     }
 
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+
     dependencies {
         implementation(libs.androidx.core.ktx)
         implementation(libs.androidx.appcompat)
@@ -55,21 +62,21 @@ android {
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.androidx.espresso.core)
-        implementation("com.google.android.material:material:1.13.0")
+        implementation(libs.material)
 
-        implementation("com.squareup.retrofit2:retrofit:3.0.0")
-        implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+        implementation(libs.retrofit)
+        implementation(libs.retrofit.gson)
 
-        implementation("com.squareup.okhttp3:logging-interceptor:5.3.2")
+        implementation(libs.okhttp.logging)
 
-        implementation("androidx.recyclerview:recyclerview:1.4.0")
+        implementation(libs.recyclerview)
 
-        implementation("com.github.bumptech.glide:glide:5.0.5")
-
-        implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
-        implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.10.0")
-
-        implementation("androidx.fragment:fragment-ktx:1.8.9")
-
+        implementation(libs.glide)
+        implementation(libs.lifecycle.viewmodel)
+        implementation(libs.lifecycle.livedata)
+        implementation(libs.fragment.ktx)
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
     }
 }

@@ -22,8 +22,8 @@ data class Event(
     @SerializedName("quota")
     val quota: Int,
 
-    @SerializedName("registrant")
-    val registrant: Int,
+    @SerializedName("registrants")
+    val registrants: Int,
 
     @SerializedName("description")
     val description: String,

@@ -1,5 +1,18 @@
 <resources>
-    <string name="app_name">DicodingEventApp</string>
+<!--    <string name="app_name">DicodingEventApp</string>-->
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+    <string name="buka_link">Buka Link</string>
+    <string name="home">Home</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="finished">Finished</string>
+    <string name="gagal_memuat_data">Gagal memuat data</string>
+    <string name="coba_lagi">Coba Lagi</string>
+    <string name="upcoming_events">Upcoming Events</string>
+    <string name="finished_events">Finished Events</string>
+    <string name="organizer_format">Organizer: %1$s</string>
+    <string name="time_format">Time: %1$s</string>
+    <string name="quota_format">Sisa Kuota: %1$d</string>
+    <string name="event_image_description">Gambar detail event</string>
+    <string name="event_thumbnail_description">Thumbnail event</string>
 </resources>

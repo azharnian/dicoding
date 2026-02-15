@@ -12,7 +12,7 @@ class HomeSliderAdapter(
     private val onClick: (Event) -> Unit
 ) : RecyclerView.Adapter<HomeSliderAdapter.HomeViewHolder>() {
 
-    inner class HomeViewHolder(
+    class HomeViewHolder(
         val binding: ItemEventHomeBinding
     ) : RecyclerView.ViewHolder(binding.root)
 

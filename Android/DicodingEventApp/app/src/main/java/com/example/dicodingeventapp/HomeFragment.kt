@@ -29,7 +29,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setupSearch()
         setupRetry()
 
-        viewModel.loadUpcoming()
+        viewModel.loadHomeEvents()
     }
 
     private fun setupRecyclerView() {
@@ -48,21 +48,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun observeViewModel() {
 
         viewModel.events.observe(viewLifecycleOwner) { events ->
+            if (events.isNotEmpty()) {
+                showContent()
+                val upcoming = events.take(5)
+                binding.rvUpcomingHome.adapter =
+                    HomeSliderAdapter(upcoming) { event ->
+                        openDetail(event)
+                    }
+            }
+        }
 
-            showContent()
-
-            val upcoming = events.take(5)
-            val finished = events.takeLast(5)
-
-            binding.rvUpcomingHome.adapter =
-                HomeSliderAdapter(upcoming) { event ->
-                    openDetail(event)
-                }
-
-            binding.rvFinishedHome.adapter =
-                EventAdapter(finished) { event ->
-                    openDetail(event)
-                }
+        viewModel.finishedEvents.observe(viewLifecycleOwner) { events ->
+            if (events.isNotEmpty()) {
+                showContent()
+                val finished = events.take(5)
+                binding.rvFinishedHome.adapter =
+                    EventAdapter(finished) { event ->
+                        openDetail(event)
+                    }
+            }
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -105,7 +109,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.btnRetry.setOnClickListener {
 
             showLoading()
-            viewModel.loadUpcoming()
+            viewModel.loadHomeEvents()
         }
     }
 
@@ -146,8 +150,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         intent.putExtra("owner", event.ownerName)
         intent.putExtra("time", event.beginTime)
 
-        val quotaLeft = event.quota - event.registrant
-        intent.putExtra("quota", quotaLeft.toString())
+        val quotaLeft = event.quota - event.registrants
+        intent.putExtra("quota", quotaLeft)
 
         intent.putExtra("desc", event.description)
         intent.putExtra("link", event.link)

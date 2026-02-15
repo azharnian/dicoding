@@ -45,7 +45,7 @@ class FinishedFragment : Fragment(R.layout.fragment_finished) {
 
     private fun observeViewModel() {
 
-        viewModel.events.observe(viewLifecycleOwner) { events ->
+        viewModel.finishedEvents.observe(viewLifecycleOwner) { events ->
 
             binding.rvFinished.adapter = EventAdapter(events) { event ->
 
@@ -56,8 +56,8 @@ class FinishedFragment : Fragment(R.layout.fragment_finished) {
                 intent.putExtra("owner", event.ownerName)
                 intent.putExtra("time", event.beginTime)
 
-                val quotaLeft = event.quota - event.registrant
-                intent.putExtra("quota", quotaLeft.toString())
+                val quotaLeft = event.quota - event.registrants
+                intent.putExtra("quota", quotaLeft)
 
                 intent.putExtra("desc", event.description)
                 intent.putExtra("link", event.link)

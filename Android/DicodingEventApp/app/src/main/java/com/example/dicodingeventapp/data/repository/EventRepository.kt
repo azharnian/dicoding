@@ -14,37 +14,14 @@ class EventRepository {
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>> = _events
 
+    private val _finishedEvents = MutableLiveData<List<Event>>()
+    val finishedEvents: LiveData<List<Event>> = _finishedEvents
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
-
-    fun onResponse(
-        call: Call<EventResponse>,
-        response: Response<EventResponse>
-    ) {
-
-        _isLoading.value = false
-
-        if (response.isSuccessful && response.body() != null) {
-
-            _events.value = response.body()!!.listEvents
-
-        } else {
-
-            _error.value =
-                "Server error: ${response.code()}"
-        }
-    }
-
-    fun onFailure(call: Call<EventResponse>, t: Throwable) {
-
-        _isLoading.value = false
-
-        _error.value =
-            "Koneksi gagal. Periksa internet."
-    }
 
     fun getEvents(active: Int) {
 
@@ -62,17 +39,18 @@ class EventRepository {
                     _isLoading.value = false
 
                     if (response.isSuccessful) {
-
-                        _events.value = response.body()?.listEvents
-
+                        val list = response.body()?.listEvents ?: emptyList()
+                        if (active == 1) {
+                            _events.value = list
+                        } else {
+                            _finishedEvents.value = list
+                        }
                     } else {
-
                         _error.value = "Gagal memuat data"
                     }
                 }
 
                 override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-
                     _isLoading.value = false
                     _error.value = t.message
                 }

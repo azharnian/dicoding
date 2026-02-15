@@ -10,6 +10,7 @@ class EventViewModel : ViewModel() {
     private val repository = EventRepository()
 
     val events: LiveData<List<Event>> = repository.events
+    val finishedEvents: LiveData<List<Event>> = repository.finishedEvents
     val isLoading: LiveData<Boolean> = repository.isLoading
     val error: LiveData<String> = repository.error
 
@@ -21,8 +22,12 @@ class EventViewModel : ViewModel() {
         repository.getEvents(0)
     }
 
+    fun loadHomeEvents() {
+        repository.getEvents(1)
+        repository.getEvents(0)
+    }
+
     fun search(query: String) {
         repository.searchEvents(query)
     }
-
 }

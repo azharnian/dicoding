@@ -53,8 +53,8 @@ class UpcomingFragment : Fragment(R.layout.fragment_upcoming) {
                 intent.putExtra("owner", event.ownerName)
                 intent.putExtra("time", event.beginTime)
 
-                val quotaLeft = event.quota - event.registrant
-                intent.putExtra("quota", quotaLeft.toString())
+                val quotaLeft = event.quota - event.registrants
+                intent.putExtra("quota", quotaLeft)
 
                 intent.putExtra("desc", event.description)
                 intent.putExtra("link", event.link)

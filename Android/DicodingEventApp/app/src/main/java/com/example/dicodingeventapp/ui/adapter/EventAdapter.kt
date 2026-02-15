@@ -13,7 +13,7 @@ class EventAdapter(
 
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
-    inner class EventViewHolder(
+    class EventViewHolder(
         val binding: ItemEventBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
