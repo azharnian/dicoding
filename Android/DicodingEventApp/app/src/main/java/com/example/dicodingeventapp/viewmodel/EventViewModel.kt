@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 import com.example.dicodingeventapp.data.model.Event
 import com.example.dicodingeventapp.data.repository.EventRepository
 
-class EventViewModel : ViewModel() {
-
-    private val repository = EventRepository()
+class EventViewModel(
+    private val repository: EventRepository
+) : ViewModel() {
 
     val events: LiveData<List<Event>> = repository.events
     val finishedEvents: LiveData<List<Event>> = repository.finishedEvents

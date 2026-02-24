@@ -11,13 +11,16 @@ import com.example.dicodingeventapp.databinding.FragmentHomeBinding
 import com.example.dicodingeventapp.ui.adapter.EventAdapter
 import com.example.dicodingeventapp.ui.adapter.HomeSliderAdapter
 import com.example.dicodingeventapp.viewmodel.EventViewModel
+import com.example.dicodingeventapp.viewmodel.ViewModelFactory
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EventViewModel by viewModels()
+    private val viewModel: EventViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -145,6 +148,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val intent = Intent(requireContext(), DetailActivity::class.java)
 
+        intent.putExtra(DetailActivity.EXTRA_ID, event.id)
         intent.putExtra("name", event.name)
         intent.putExtra("image", event.imageLogo)
         intent.putExtra("owner", event.ownerName)

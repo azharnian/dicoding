@@ -9,13 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingeventapp.databinding.FragmentUpcomingBinding
 import com.example.dicodingeventapp.ui.adapter.EventAdapter
 import com.example.dicodingeventapp.viewmodel.EventViewModel
+import com.example.dicodingeventapp.viewmodel.ViewModelFactory
 
 class UpcomingFragment : Fragment(R.layout.fragment_upcoming) {
 
     private var _binding: FragmentUpcomingBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EventViewModel by viewModels()
+    private val viewModel: EventViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,16 +51,15 @@ class UpcomingFragment : Fragment(R.layout.fragment_upcoming) {
 
                 val intent = Intent(requireContext(), DetailActivity::class.java)
 
-                intent.putExtra("name", event.name)
-                intent.putExtra("image", event.imageLogo)
-                intent.putExtra("owner", event.ownerName)
-                intent.putExtra("time", event.beginTime)
+                intent.putExtra(DetailActivity.EXTRA_ID, event.id)
+                intent.putExtra(DetailActivity.EXTRA_NAME, event.name)
+                intent.putExtra(DetailActivity.EXTRA_IMAGE, event.imageLogo)
+                intent.putExtra(DetailActivity.EXTRA_OWNER, event.ownerName)
+                intent.putExtra(DetailActivity.EXTRA_TIME, event.beginTime)
+                intent.putExtra(DetailActivity.EXTRA_QUOTA, event.quota)
+                intent.putExtra(DetailActivity.EXTRA_DESC, event.description)
+                intent.putExtra(DetailActivity.EXTRA_LINK, event.link)
 
-                val quotaLeft = event.quota - event.registrants
-                intent.putExtra("quota", quotaLeft)
-
-                intent.putExtra("desc", event.description)
-                intent.putExtra("link", event.link)
 
                 startActivity(intent)
             }

@@ -9,13 +9,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingeventapp.databinding.FragmentFinishedBinding
 import com.example.dicodingeventapp.ui.adapter.EventAdapter
 import com.example.dicodingeventapp.viewmodel.EventViewModel
+import com.example.dicodingeventapp.viewmodel.ViewModelFactory
 
 class FinishedFragment : Fragment(R.layout.fragment_finished) {
 
     private var _binding: FragmentFinishedBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: EventViewModel by viewModels()
+    private val viewModel: EventViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +54,7 @@ class FinishedFragment : Fragment(R.layout.fragment_finished) {
 
                 val intent = Intent(requireContext(), DetailActivity::class.java)
 
+                intent.putExtra(DetailActivity.EXTRA_ID, event.id)
                 intent.putExtra("name", event.name)
                 intent.putExtra("image", event.imageLogo)
                 intent.putExtra("owner", event.ownerName)

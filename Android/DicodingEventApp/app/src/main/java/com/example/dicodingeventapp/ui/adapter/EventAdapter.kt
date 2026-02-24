@@ -49,4 +49,5 @@ class EventAdapter(
     }
 
     override fun getItemCount(): Int = listEvent.size
+
 }

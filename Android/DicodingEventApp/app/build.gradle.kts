@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.github.ben-manes.versions") version "0.53.0"
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -68,7 +69,6 @@ android {
         implementation(libs.retrofit.gson)
 
         implementation(libs.okhttp.logging)
-
         implementation(libs.recyclerview)
 
         implementation(libs.glide)
@@ -78,5 +78,11 @@ android {
         testImplementation(libs.junit)
         androidTestImplementation(libs.androidx.junit)
         androidTestImplementation(libs.androidx.espresso.core)
+
+        implementation(libs.room.runtime)
+        implementation(libs.room.ktx)
+        kapt(libs.room.compiler)
+
+        implementation(libs.androidx.datastore.preferences)
     }
 }

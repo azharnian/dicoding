@@ -18,4 +18,14 @@
         android:icon="@drawable/ic_finished"
         android:title="@string/finished" />
 
+    <item
+        android:id="@+id/nav_favorite"
+        android:icon="@drawable/ic_favorite_border"
+        android:title="Favorite"/>
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_setting"
+        android:title="Setting"/>
+
 </menu>

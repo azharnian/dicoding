@@ -15,4 +15,6 @@
     <string name="quota_format">Sisa Kuota: %1$d</string>
     <string name="event_image_description">Gambar detail event</string>
     <string name="event_thumbnail_description">Thumbnail event</string>
+    <string name="favorite">Favorite</string>
+    <string name="belum_ada_favorite">Belum ada favorite</string>
 </resources>

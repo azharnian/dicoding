@@ -2,14 +2,22 @@ package com.example.dicodingeventapp.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import android.content.Context
 import com.example.dicodingeventapp.data.api.ApiConfig
+import com.example.dicodingeventapp.data.api.ApiService
+import com.example.dicodingeventapp.data.local.dao.FavoriteEventDao
+import com.example.dicodingeventapp.data.local.entity.FavoriteEventEntity
+import com.example.dicodingeventapp.data.local.room.AppDatabase
 import com.example.dicodingeventapp.data.model.Event
 import com.example.dicodingeventapp.data.model.EventResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventRepository {
+class EventRepository(
+    private val apiService: ApiService,
+    private val favoriteDao: FavoriteEventDao
+) {
 
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>> = _events
@@ -87,4 +95,43 @@ class EventRepository {
             })
     }
 
+    // ================= FAVORITE =================
+
+    fun getFavoriteEvents(): LiveData<List<FavoriteEventEntity>> {
+        return favoriteDao.getFavoriteEvents()
+    }
+
+    fun getFavoriteById(id: Int): LiveData<FavoriteEventEntity?> {
+        return favoriteDao.getFavoriteById(id)
+    }
+
+    suspend fun insertFavorite(event: FavoriteEventEntity) {
+        favoriteDao.insertFavorite(event)
+    }
+
+    suspend fun deleteFavorite(event: FavoriteEventEntity) {
+        favoriteDao.deleteFavorite(event)
+    }
+
+    companion object {
+
+        @Volatile
+        private var INSTANCE: EventRepository? = null
+
+        fun getInstance(context: Context): EventRepository {
+            return INSTANCE ?: synchronized(this) {
+
+                val apiService = ApiConfig.getApiService()
+                val database = AppDatabase.getDatabase(context)
+                val favoriteDao = database.favoriteEventDao()
+
+                val instance = EventRepository(apiService, favoriteDao)
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+
 }
+
+
