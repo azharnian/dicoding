@@ -1,4 +1,4 @@
-package com.example.dicodingeventapp.extensions
+package com.example.dicodingeventapp.utils
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

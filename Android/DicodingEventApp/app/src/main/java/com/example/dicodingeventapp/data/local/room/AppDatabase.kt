@@ -9,7 +9,7 @@ import com.example.dicodingeventapp.data.local.entity.FavoriteEventEntity
 
 @Database(
     entities = [FavoriteEventEntity::class],
-    version = 2,   // pastikan sudah dinaikkan
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -29,7 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "event_database"
                 )
-                    .fallbackToDestructiveMigration(dropAllTables = true)
+                    .fallbackToDestructiveMigration()
                     .build()
 
                 INSTANCE = instance

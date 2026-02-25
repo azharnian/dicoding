@@ -1,21 +1,26 @@
 package com.example.dicodingeventapp.data.api
 
 import com.example.dicodingeventapp.data.model.EventResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("events")
-    fun getEvents(
+    suspend fun getEvents(
         @Query("active") active: Int
-    ): Call<EventResponse>
+    ): EventResponse
 
     @GET("events")
-    fun searchEvents(
+    suspend fun searchEvents(
         @Query("active") active: Int,
         @Query("q") query: String
-    ): Call<EventResponse>
+    ): EventResponse
+
+    @GET("events")
+    suspend fun getLatestEvent(
+        @Query("active") active: Int,
+        @Query("limit") limit: Int
+    ): EventResponse
 
 }

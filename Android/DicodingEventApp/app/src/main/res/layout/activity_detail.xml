@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- IMAGE + FAVORITE -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="220dp">
@@ -19,7 +18,8 @@
                 android:id="@+id/imgDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:contentDescription="@null" />
 
             <ImageButton
                 android:id="@+id/btnFavorite"
@@ -29,17 +29,17 @@
                 android:layout_margin="16dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_favorite_border"
+                android:contentDescription="@null"
                 app:tint="@android:color/white" />
+
         </FrameLayout>
 
-        <!-- CONTENT -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- TITLE -->
             <TextView
                 android:id="@+id/txtName"
                 android:layout_width="match_parent"
@@ -48,7 +48,6 @@
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnBackground" />
 
-            <!-- ORGANIZER -->
             <TextView
                 android:id="@+id/txtOwner"
                 android:layout_width="match_parent"
@@ -57,7 +56,6 @@
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="14sp" />
 
-            <!-- TIME -->
             <TextView
                 android:id="@+id/txtTime"
                 android:layout_width="match_parent"
@@ -66,7 +64,6 @@
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="14sp" />
 
-            <!-- QUOTA CARD STYLE -->
             <TextView
                 android:id="@+id/txtQuota"
                 android:layout_width="wrap_content"
@@ -78,17 +75,15 @@
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
-            <!-- DESCRIPTION HEADER -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Deskripsi"
+                android:text="@string/deskripsi"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="?attr/colorOnBackground" />
 
-            <!-- DESCRIPTION -->
             <TextView
                 android:id="@+id/txtDesc"
                 android:layout_width="match_parent"
@@ -98,7 +93,6 @@
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="14sp" />
 
-            <!-- BUTTON -->
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"

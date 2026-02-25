@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dicodingeventapp.databinding.ActivityDetailBinding
 import androidx.core.net.toUri
-import com.example.dicodingeventapp.extensions.loadImage
+import com.example.dicodingeventapp.utils.loadImage
 import com.example.dicodingeventapp.viewmodel.FavoriteViewModel
 import com.example.dicodingeventapp.viewmodel.ViewModelFactory
 import com.example.dicodingeventapp.data.local.entity.FavoriteEventEntity

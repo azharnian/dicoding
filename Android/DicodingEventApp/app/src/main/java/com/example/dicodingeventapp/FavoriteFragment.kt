@@ -21,6 +21,8 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
         ViewModelFactory.getInstance(requireContext())
     }
 
+    private lateinit var adapter: EventAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -31,23 +33,34 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     }
 
     private fun setupRecyclerView() {
+        adapter = EventAdapter { event ->
+            val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                putExtra(DetailActivity.EXTRA_ID, event.id)
+                putExtra(DetailActivity.EXTRA_NAME, event.name)
+                putExtra(DetailActivity.EXTRA_IMAGE, event.imageLogo)
+                putExtra(DetailActivity.EXTRA_OWNER, event.ownerName)
+                putExtra(DetailActivity.EXTRA_TIME, event.beginTime)
+                val quotaLeft = event.quota - event.registrants
+                putExtra(DetailActivity.EXTRA_QUOTA, quotaLeft)
+                putExtra(DetailActivity.EXTRA_DESC, event.description)
+                putExtra(DetailActivity.EXTRA_LINK, event.link)
+            }
+            startActivity(intent)
+        }
+
         binding.rvFavorite.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
+            adapter = this@FavoriteFragment.adapter
         }
     }
 
     private fun observeViewModel() {
-
         viewModel.getFavorites().observe(viewLifecycleOwner) { favorites ->
-
-            if (favorites.isEmpty()) {
-
+            if (favorites.isNullOrEmpty()) {
                 binding.rvFavorite.visibility = View.GONE
                 binding.txtEmpty.visibility = View.VISIBLE
-
             } else {
-
                 binding.txtEmpty.visibility = View.GONE
                 binding.rvFavorite.visibility = View.VISIBLE
 
@@ -64,25 +77,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
                         link = it.link ?: ""
                     )
                 }
-
-                binding.rvFavorite.adapter = EventAdapter(eventList) { event ->
-
-                    val intent = Intent(requireContext(), DetailActivity::class.java)
-
-                    intent.putExtra(DetailActivity.EXTRA_ID, event.id)
-                    intent.putExtra(DetailActivity.EXTRA_NAME, event.name)
-                    intent.putExtra(DetailActivity.EXTRA_IMAGE, event.imageLogo)
-                    intent.putExtra(DetailActivity.EXTRA_OWNER, event.ownerName)
-                    intent.putExtra(DetailActivity.EXTRA_TIME, event.beginTime)
-
-                    val quotaLeft = event.quota - event.registrants
-                    intent.putExtra(DetailActivity.EXTRA_QUOTA, quotaLeft)
-
-                    intent.putExtra(DetailActivity.EXTRA_DESC, event.description)
-                    intent.putExtra(DetailActivity.EXTRA_LINK, event.link)
-
-                    startActivity(intent)
-                }
+                adapter.submitList(eventList)
             }
         }
     }

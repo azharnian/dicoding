@@ -10,6 +10,7 @@ import com.example.dicodingeventapp.databinding.FragmentFinishedBinding
 import com.example.dicodingeventapp.ui.adapter.EventAdapter
 import com.example.dicodingeventapp.viewmodel.EventViewModel
 import com.example.dicodingeventapp.viewmodel.ViewModelFactory
+import com.example.dicodingeventapp.utils.ResultState
 
 class FinishedFragment : Fragment(R.layout.fragment_finished) {
 
@@ -20,81 +21,81 @@ class FinishedFragment : Fragment(R.layout.fragment_finished) {
         ViewModelFactory.getInstance(requireContext())
     }
 
+    private lateinit var eventAdapter: EventAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentFinishedBinding.bind(view)
 
         setupRecyclerView()
-        observeViewModel()
+        observeState()
 
-        viewModel.loadFinished()
-
-        binding.btnRetry.setOnClickListener {
-
-            binding.layoutError.visibility = View.GONE
+        if (viewModel.finishedState.value == null) {
             viewModel.loadFinished()
         }
 
+        binding.btnRetry.setOnClickListener {
+            viewModel.loadFinished()
+        }
     }
 
     private fun setupRecyclerView() {
+        eventAdapter = EventAdapter { event ->
+            val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+                putExtra(DetailActivity.EXTRA_ID, event.id)
+                putExtra(DetailActivity.EXTRA_NAME, event.name)
+                putExtra(DetailActivity.EXTRA_IMAGE, event.imageLogo)
+                putExtra(DetailActivity.EXTRA_OWNER, event.ownerName)
+                putExtra(DetailActivity.EXTRA_TIME, event.beginTime)
+                val quotaLeft = event.quota - event.registrants
+                putExtra(DetailActivity.EXTRA_QUOTA, quotaLeft)
+                putExtra(DetailActivity.EXTRA_DESC, event.description)
+                putExtra(DetailActivity.EXTRA_LINK, event.link)
+            }
+            startActivity(intent)
+        }
 
         binding.rvFinished.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
+            adapter = eventAdapter
         }
     }
 
-    private fun observeViewModel() {
-
-        viewModel.finishedEvents.observe(viewLifecycleOwner) { events ->
-
-            binding.rvFinished.adapter = EventAdapter(events) { event ->
-
-                val intent = Intent(requireContext(), DetailActivity::class.java)
-
-                intent.putExtra(DetailActivity.EXTRA_ID, event.id)
-                intent.putExtra("name", event.name)
-                intent.putExtra("image", event.imageLogo)
-                intent.putExtra("owner", event.ownerName)
-                intent.putExtra("time", event.beginTime)
-
-                val quotaLeft = event.quota - event.registrants
-                intent.putExtra("quota", quotaLeft)
-
-                intent.putExtra("desc", event.description)
-                intent.putExtra("link", event.link)
-
-                startActivity(intent)
+    private fun observeState() {
+        viewModel.finishedState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is ResultState.Loading -> {
+                    showLoading(true)
+                    binding.layoutError.visibility = View.GONE
+                    binding.layoutEmpty.visibility = View.GONE
+                    binding.rvFinished.visibility = View.GONE
+                }
+                is ResultState.Success -> {
+                    showLoading(false)
+                    if (state.data.isEmpty()) {
+                        binding.layoutEmpty.visibility = View.VISIBLE
+                        binding.rvFinished.visibility = View.GONE
+                    } else {
+                        binding.layoutEmpty.visibility = View.GONE
+                        binding.rvFinished.visibility = View.VISIBLE
+                        eventAdapter.submitList(state.data)
+                    }
+                }
+                is ResultState.Error -> {
+                    showLoading(false)
+                    binding.layoutError.visibility = View.VISIBLE
+                    binding.txtError.text = state.message
+                    binding.rvFinished.visibility = View.GONE
+                    binding.layoutEmpty.visibility = View.GONE
+                }
             }
         }
+    }
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-
-            if (isLoading) {
-
-                binding.progressBar.visibility = View.VISIBLE
-                binding.layoutError.visibility = View.GONE
-
-            } else {
-
-                binding.progressBar.visibility = View.GONE
-            }
-        }
-
-
-        viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
-
-            if (!errorMessage.isNullOrEmpty()) {
-
-                binding.layoutError.visibility = View.VISIBLE
-                binding.rvFinished.visibility = View.GONE
-
-                binding.txtError.text = errorMessage
-            }
-        }
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {

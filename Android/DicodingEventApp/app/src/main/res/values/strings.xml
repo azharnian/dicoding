@@ -17,4 +17,16 @@
     <string name="event_thumbnail_description">Thumbnail event</string>
     <string name="favorite">Favorite</string>
     <string name="belum_ada_favorite">Belum ada favorite</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="favorite2">Favorite</string>
+    <string name="setting">Setting</string>
+    <string name="empty_state">Empty State</string>
+    <string name="pengaturan">Pengaturan</string>
+    <string name="sesuaikan_preferensi">Sesuaikan Preferensi</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="dark_mode_desc" />
+    <string name="daily_reminder_desc" />
+    <string name="deskripsi">Deskripsi</string>
+    <string name="belum_ada_event_selesai">Belum ada event selesai</string>
+    <string name="error_state">Error State</string>
 </resources>

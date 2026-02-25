@@ -1,5 +1,6 @@
 package com.example.dicodingeventapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,11 +11,21 @@ class ThemeViewModel(
     private val pref: ThemePreferences
 ) : ViewModel() {
 
-    val isDarkTheme = pref.getTheme().asLiveData()
+    val isDarkTheme: LiveData<Boolean> =
+        pref.getTheme().asLiveData()
 
     fun saveTheme(isDark: Boolean) {
         viewModelScope.launch {
             pref.saveTheme(isDark)
+        }
+    }
+
+    val isReminderActive: LiveData<Boolean> =
+        pref.getDailyReminder().asLiveData()
+
+    fun saveReminder(isActive: Boolean) {
+        viewModelScope.launch {
+            pref.saveDailyReminder(isActive)
         }
     }
 }
